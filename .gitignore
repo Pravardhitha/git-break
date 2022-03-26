@@ -1,0 +1,10 @@
+# credentials / senitive info
+creds.py
+
+# py stuff
+__pycache__
+Include/
+Lib/
+Scripts/
+pyvenv.cfg
+
