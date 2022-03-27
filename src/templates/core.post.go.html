@@ -33,7 +33,7 @@
 
 {{block "branchProt" .}}
 {{range .}}
-    <div class="row" style="padding: 5%">
+    <div class="row" style="padding-top: 5%">
     <div class="card text-center mx-auto" style="width: 18rem;text-align: center;">
         {{if .Protected}}
         <div class="card-header" style="background-color: greenyellow;"></div>
@@ -51,4 +51,23 @@
     </div>
     </div>
 {{end}}
+{{end}}
+
+{{block "sendsms" .}}
+<div class="row" style="padding-top: 5%">
+<form method="POST">
+    <div class="input-group mb-3">
+      <!-- <input type="text" class="form-control" placeholder="+1203453xxxx" id="pnum" name="pnum"> -->
+      <input type="text" class="form-control" placeholder="+1203453xxxx" id="msg" name="msg">
+    </div>
+    <button class="btn btn-outline-info" type="submit" onclick="myFuncSend()">check</button>
+    <script>
+        async function myFuncSend() {
+            let msg = document.getElementById('msg')
+            console.log(msg)
+            fetch(`localhost:9994/?${msg}`)
+        }
+    </script>
+  </form>
+</div>
 {{end}}
