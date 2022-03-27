@@ -21,6 +21,7 @@ type CommitBranch struct {
 }
 
 // Branches: checks Branch protections
+// Implicitly this has at least one branch so doesn't error not found it
 func Branches(user, repo string) []BranchSec {
 	var jsonData []BranchSec
 	url := fmt.Sprintf("repos/%s/%s/branches", user, repo)
@@ -28,6 +29,18 @@ func Branches(user, repo string) []BranchSec {
 
 	json.Unmarshal([]byte(retData), &jsonData)
 	return jsonData
+}
+
+func License(user, repo string) {
+	// var jsonData map[string]interface{}
+	url := fmt.Sprintf("repos/%s/%s/license", user, repo)
+	fmt.Println(GET(url))
+}
+
+func Commits(user, repo string) {
+	// var jsonData map[string]interface{}
+	url := fmt.Sprintf("repos/%s/%s/commits", user, repo)
+	fmt.Println(GET(url))
 }
 
 // GET: Generic GET request to send to generic github api

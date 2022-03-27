@@ -8,11 +8,20 @@ import (
 	"strconv"
 
 	U "github.com/Pravardhitha/git-break/src/util"
+	"github.com/joho/godotenv"
 )
 
 const (
 	PORT = 9994
 )
+
+func init() {
+	err := godotenv.Load(".env")
+
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+}
 
 func checkHandler(w http.ResponseWriter, r *http.Request) {
 	tpl := template.Must(template.ParseGlob("templates/*.html"))
@@ -77,6 +86,9 @@ func main() {
 	http.HandleFunc("/check", checkHandler)
 	http.HandleFunc("/defend", defendHandler)
 	http.HandleFunc("/about", aboutHandler)
+	http.HandleFunc("/try", func(w http.ResponseWriter, r *http.Request) {
+		U.SendSMS("brotendo")
+	})
 
 	fmt.Printf("http://localhost:%s\n", port)
 	log.Fatalln(http.ListenAndServe(":"+port, nil))

@@ -10,6 +10,7 @@ pyvenv.cfg
 
 # Executables
 src/main
+src/main.exe 
 
 # dotenvfiles -> Environment Variables
 .env 

@@ -11,6 +11,21 @@ Security is typically an after thought, we are trying to make it just a regular 
 
 ## :hammer: How to Build
 
+### Make
+```sh
+cd src
+
+# 
+make
+```
+### Raw Go
+```sh
+cd src
+
+# 
+go run main.go
+```
+
 ## :alembic: Usage 
 
 ## :microscope: Technologies
@@ -21,8 +36,16 @@ Security is typically an after thought, we are trying to make it just a regular 
 ## :card_file_box: Directory Explanation
 
 ## :blue_book: Technical Details
+Need `.env` in `/src` with the following fields:
+```txt
+TWILIO_ACCOUNT_SID=""
+TWILIO_AUTH_TOKEN=""
+TWILIO_PHONE_NUMBER=""
+TO_PHONE_NUMBER= "
+```
 
 ## :books: Resources
-- 
+- [Twilio SendSMS via Go](https://www.twilio.com/blog/send-sms-30-seconds-golang)
+- [Go env](https://zetcode.com/golang/env/)
 
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%203.svg)](https://www.digitalocean.com/?refcode=a2a8208fca48&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
