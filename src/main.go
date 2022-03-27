@@ -25,7 +25,8 @@ func init() {
 
 func checkHandler(w http.ResponseWriter, r *http.Request) {
 	tpl := template.Must(template.ParseGlob("templates/*.html"))
-	navs := []string{"check", "defend", "about"}
+	// navs := []string{"check", "defend", "about"}
+	navs := []string{"check", "about"}
 	switch r.Method {
 	case "GET":
 		tpl.ExecuteTemplate(w, "headnbod", navs)
@@ -52,6 +53,7 @@ func checkHandler(w http.ResponseWriter, r *http.Request) {
 
 			tpl.ExecuteTemplate(w, "headnbod", navs)
 			tpl.ExecuteTemplate(w, "startPost", navs)
+			tpl.ExecuteTemplate(w, "sendsms", nil)
 			if licenseData.DoesRet {
 				tpl.ExecuteTemplate(w, "licenseTrue", licenseData.Value.Name)
 			} else {
@@ -97,7 +99,7 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		tpl := template.Must(template.ParseGlob("templates/*.html"))
-		navs := []string{"check", "defend", "about"}
+		navs := []string{"check", "about"}
 		tpl.ExecuteTemplate(w, "headnbod", navs)
 		tpl.ExecuteTemplate(w, "about", nil)
 		tpl.ExecuteTemplate(w, "tail", nil)

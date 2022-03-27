@@ -8,7 +8,7 @@
 {{end}}
 
 {{block "licenseTrue" .}}
-    <div class="row" style="padding-top: 10%;">
+    <div class="row" style="padding-top: 2%;">
     <div class="card text-center mx-auto" style="width: 18rem;">
         <div class="card-header" style="background-color: greenyellow;"></div>
         <div class="card-body">
@@ -20,7 +20,7 @@
 {{end}}
 
 {{block "licenseFalse" .}}
-    <div class="row" style="padding-top: 10%">
+    <div class="row" style="padding-top: 2%">
     <div class="card text-center mx-auto" style="width: 18rem;text-align: center;">
         <div class="card-header" style="background-color: red;"></div>
         <div class="card-body">
@@ -33,7 +33,7 @@
 
 {{block "branchProt" .}}
 {{range .}}
-    <div class="row" style="padding-top: 5%">
+    <div class="row" style="padding-top: 2%">
     <div class="card text-center mx-auto" style="width: 18rem;text-align: center;">
         {{if .Protected}}
         <div class="card-header" style="background-color: greenyellow;"></div>
@@ -54,20 +54,19 @@
 {{end}}
 
 {{block "sendsms" .}}
-<div class="row" style="padding-top: 5%">
-<form method="POST">
-    <div class="input-group mb-3">
-      <!-- <input type="text" class="form-control" placeholder="+1203453xxxx" id="pnum" name="pnum"> -->
-      <input type="text" class="form-control" placeholder="+1203453xxxx" id="msg" name="msg">
-    </div>
-    <button class="btn btn-outline-info" type="submit" onclick="myFuncSend()">check</button>
-    <script>
+<div class="row">
+    <!-- <script>
         async function myFuncSend() {
             let msg = document.getElementById('msg')
             console.log(msg)
-            fetch(`localhost:9994/?${msg}`)
+            fetch(`http://localhost:9994/sms?${msg}`)
         }
-    </script>
-  </form>
+    </script> -->
+    <div class="input-group mb-3" style="padding-top: 2%;">
+      <!-- <input type="text" class="form-control" placeholder="+1203453xxxx" id="pnum" name="pnum"> -->
+      <input type="text" class="form-control" placeholder="txt msg" id="msg" name="msg">
+    </div>
+    <button class="btn btn-outline-info" type="submit" onclick="console.log('https\:\/\/localhost:9994\/sms?' + document.getElementById('msg')`)">check</button>
+  <!-- </form> -->
 </div>
 {{end}}
