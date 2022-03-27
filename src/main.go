@@ -5,8 +5,8 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"reflect"
 	"strconv"
+
 	U "github.com/Pravardhitha/git-break/src/util"
 )
 
@@ -15,10 +15,10 @@ const (
 )
 
 func checkHandler(w http.ResponseWriter, r *http.Request) {
+	tpl := template.Must(template.ParseGlob("templates/*.html"))
+	navs := []string{"check", "defend", "about"}
 	switch r.Method {
 	case "GET":
-		tpl := template.Must(template.ParseGlob("templates/*.html"))
-		navs := []string{"check", "defend", "about"}
 		tpl.ExecuteTemplate(w, "check", navs)
 	case "POST":
 		if err := r.ParseForm(); err != nil {
@@ -26,11 +26,18 @@ func checkHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		input := r.FormValue("input")
-		if util.isGithub(input) {
-			// U.GET()
-		}
-		fmt.Fprintf(w, "%v\t%v", input, reflect.TypeOf(input))
+		if U.IsGithub(input) {
+			// to get the user and repo from values
+			specialFmt := fmt.Sprintf("%sSDUIE$FHWUIFNKWF$", input)
+			// fmt.Println(specialFmt)
+			gitinfo := U.ParseUserRepo(specialFmt)
 
+			data := U.Branches(gitinfo.User, gitinfo.Repo)
+			fmt.Println(data[0].Protected)
+
+		} else {
+			tpl.ExecuteTemplate(w, "err", navs)
+		}
 	default:
 		fmt.Fprintf(w, "err: resource not found")
 	}

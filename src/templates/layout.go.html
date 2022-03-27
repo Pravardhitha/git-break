@@ -69,3 +69,23 @@
 </body>
 </html>
 {{end}}
+
+<!-- err -->
+{{block "err" .}}
+<html>
+<head>
+{{template "head"}}
+</head>
+<body>
+  {{template "body-bootstrap"}}
+    {{template "nav" .}}
+
+    <div class="container" style="text-align: center;">
+      <div class="row" style="padding: 15% 0%;">
+        <p>Error: not valid</p>
+      </div>
+    </div>
+    {{template "foot"}}
+</body>
+</html>
+{{end}}
