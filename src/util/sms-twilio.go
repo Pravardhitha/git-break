@@ -8,13 +8,13 @@ import (
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
-func SendSMS() {
+func SendSMS(txtmsg string) {
 	client := twilio.NewRestClient()
 
 	params := &openapi.CreateMessageParams{}
 	params.SetTo(os.Getenv("TO_PHONE_NUMBER"))
 	params.SetFrom(os.Getenv("TWILIO_PHONE_NUMBER"))
-	params.SetBody("Hello from Golang!")
+	params.SetBody(txtmsg)
 
 	_, err := client.ApiV2010.CreateMessage(params)
 	if err != nil {
