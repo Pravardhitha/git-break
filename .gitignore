@@ -8,3 +8,8 @@ Lib/
 Scripts/
 pyvenv.cfg
 
+# Executables
+src/main
+
+# dotenvfiles -> Environment Variables
+.env 
