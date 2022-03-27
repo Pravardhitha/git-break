@@ -8,7 +8,7 @@ import (
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
-func sendSMS() {
+func SendSMS() {
 	client := twilio.NewRestClient()
 
 	params := &openapi.CreateMessageParams{}
