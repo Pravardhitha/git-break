@@ -5,35 +5,51 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"reflect"
 	"strconv"
+	U "github.com/Pravardhitha/git-break/src/util"
 )
 
 const (
 	PORT = 9994
 )
 
-func rootHandler(w http.ResponseWriter, r *http.Request) {
-	tpl := template.Must(template.ParseGlob("templates/*.html"))
+func checkHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		tpl := template.Must(template.ParseGlob("templates/*.html"))
+		navs := []string{"check", "defend", "about"}
+		tpl.ExecuteTemplate(w, "check", navs)
+	case "POST":
+		if err := r.ParseForm(); err != nil {
+			log.Fatal(err.Error())
+		}
 
-	navs := []string{"check", "defend", "about"}
+		input := r.FormValue("input")
+		if util.isGithub(input) {
+			// U.GET()
+		}
+		fmt.Fprintf(w, "%v\t%v", input, reflect.TypeOf(input))
 
-	tpl.ExecuteTemplate(w, "check", navs)
-}
-
-func exploitHandler(w http.ResponseWriter, r *http.Request) {
-	tpl := template.Must(template.ParseGlob("templates/*.html"))
-
-	navs := []string{"check", "defend", "about"}
-
-	tpl.ExecuteTemplate(w, "check", navs)
+	default:
+		fmt.Fprintf(w, "err: resource not found")
+	}
 }
 
 func defendHandler(w http.ResponseWriter, r *http.Request) {
-	tpl := template.Must(template.ParseGlob("templates/*.html"))
+	switch r.Method {
+	case "GET":
+		tpl := template.Must(template.ParseGlob("templates/*.html"))
+		navs := []string{"check", "defend", "about"}
+		tpl.ExecuteTemplate(w, "defend", navs)
+	case "POST":
+		if err := r.ParseForm(); err != nil {
+			log.Fatal(err.Error())
+		}
 
-	navs := []string{"check", "defend", "about"}
-
-	tpl.ExecuteTemplate(w, "defend", navs)
+	default:
+		fmt.Fprintf(w, "err: resource not found")
+	}
 }
 
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
@@ -50,8 +66,8 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	port := strconv.Itoa(PORT)
 
-	http.HandleFunc("/", rootHandler)
-	http.HandleFunc("/check", exploitHandler)
+	http.HandleFunc("/", checkHandler)
+	http.HandleFunc("/check", checkHandler)
 	http.HandleFunc("/defend", defendHandler)
 	http.HandleFunc("/about", aboutHandler)
 

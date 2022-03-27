@@ -12,10 +12,12 @@
       <div class="row" style="padding: 15% 0%;">
         <div class="col">
           <p>Enter the repo path to check</p>
+          <form method="POST">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="github.com/username/reponame" aria-label="Username" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">check</button>
+            <input type="text" class="form-control" placeholder="github.com/username/reponame" name="input">
           </div>
+          <button class="btn btn-outline-info" type="submit">check</button>
+        </form>
         </div>
       </div>
     </div>

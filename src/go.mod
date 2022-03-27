@@ -1,4 +1,4 @@
-module github.com/Pravardhitha/git-break
+module github.com/Pravardhitha/git-break/src
 
 go 1.17
 
