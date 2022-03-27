@@ -12,6 +12,11 @@ Demo: https://git-break.tech
 Security is typically an after thought, we are trying to make it just a regular thought
 
 ## :memo: Description
+Git-break is a tool which helps to defend and protect your hard work. 
+We offer 2 services: defend and exploit. 
+Worried about your code being manipulated? 
+We'll look out for you and send you an alert! 
+
 
 ## :hammer: How to Build
 
