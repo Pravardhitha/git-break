@@ -1,1 +1,54 @@
 <!-- For POST requests -->
+{{block "startPost" .}}
+<div class="container" style="text-align: center;">
+{{end}}
+
+{{block "endPost" .}}
+</div>
+{{end}}
+
+{{block "licenseTrue" .}}
+    <div class="row" style="padding-top: 10%;">
+    <div class="card text-center mx-auto" style="width: 18rem;">
+        <div class="card-header" style="background-color: greenyellow;"></div>
+        <div class="card-body">
+        <h5 class="card-title">Found LICENSE!</h5>
+        <p class="card-text">{{.}}</p>
+        </div>
+    </div>
+    </div>
+{{end}}
+
+{{block "licenseFalse" .}}
+    <div class="row" style="padding-top: 10%">
+    <div class="card text-center mx-auto" style="width: 18rem;text-align: center;">
+        <div class="card-header" style="background-color: red;"></div>
+        <div class="card-body">
+        <h5 class="card-title">No LICENSE found!</h5>
+        <p class="card-text">Be sure to add some to make your Github Repo looking even better</p>
+        </div>
+    </div>
+    </div>
+{{end}}
+
+{{block "branchProt" .}}
+{{range .}}
+    <div class="row" style="padding: 5%">
+    <div class="card text-center mx-auto" style="width: 18rem;text-align: center;">
+        {{if .Protected}}
+        <div class="card-header" style="background-color: greenyellow;"></div>
+        <div class="card-body">
+        <h5 class="card-title"><span style="font-weight: bold">{{.Name}}</span> Branch</h5>
+        <p class="card-text">Branch is Protected! </p>
+        </div>
+        {{else}}
+        <div class="card-header" style="background-color: red;"></div>
+        <div class="card-body">
+            <h5 class="card-title"><span style="font-weight: bold">{{.Name}}</span> Branch</h5>
+            <p class="card-text">Branch Not Protected! Susceptible to various attacks!</p>
+        </div>
+        {{end}}
+    </div>
+    </div>
+{{end}}
+{{end}}

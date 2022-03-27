@@ -20,6 +20,26 @@ type CommitBranch struct {
 	Url string `json:"url"`
 }
 
+type SpecificLicense struct {
+	Key     string `json:"key"`
+	Name    string `json:"name"`
+	SPDX_ID string `json:"spdx_id"`
+	Url     string `json:"url"`
+	NODE_ID string `json:"node_id"`
+}
+
+type LicenseReturn struct {
+	DoesRet bool
+	Value   SpecificLicense
+}
+
+type Verification struct {
+	Verified  bool   `json:"verified"`
+	Reason    string `json:"reason"`
+	Signature string `json:"signature"`
+	Payload   string `json:"payload"`
+}
+
 // Branches: checks Branch protections
 // Implicitly this has at least one branch so doesn't error not found it
 func Branches(user, repo string) []BranchSec {
@@ -31,16 +51,40 @@ func Branches(user, repo string) []BranchSec {
 	return jsonData
 }
 
-func License(user, repo string) {
-	// var jsonData map[string]interface{}
+func License(user, repo string) LicenseReturn {
+	var jsonData map[string]interface{}
+	var ret LicenseReturn
 	url := fmt.Sprintf("repos/%s/%s/license", user, repo)
-	fmt.Println(GET(url))
+	retData := GET(url)
+
+	json.Unmarshal([]byte(retData), &jsonData)
+	if val, ok := jsonData["license"]; ok {
+		var lic SpecificLicense
+		a, _ := json.Marshal(val)
+		json.Unmarshal([]byte(a), &lic)
+
+		ret.DoesRet = ok
+		ret.Value = lic
+	} else {
+		ret.DoesRet = ok
+		ret.Value = SpecificLicense{}
+	}
+	return ret
 }
 
+// Implicitly this has at least one commit so doesn't error not found it
 func Commits(user, repo string) {
-	// var jsonData map[string]interface{}
+	var jsonData map[string]interface{}
 	url := fmt.Sprintf("repos/%s/%s/commits", user, repo)
-	fmt.Println(GET(url))
+	retData := GET(url)
+	json.Unmarshal([]byte(retData), &jsonData)
+
+	if commitVal, ok := jsonData["commit"]; ok {
+		var insideCommit map[string]interface{}
+		jsonCommit, _ := json.Marshal(commitVal)
+		json.Unmarshal([]byte(jsonCommit), &insideCommit)
+		// TODO
+	}
 }
 
 // GET: Generic GET request to send to generic github api
