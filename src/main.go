@@ -113,8 +113,10 @@ func main() {
 	http.HandleFunc("/check", checkHandler)
 	http.HandleFunc("/defend", defendHandler)
 	http.HandleFunc("/about", aboutHandler)
-	http.HandleFunc("/try", func(w http.ResponseWriter, r *http.Request) {
-		U.SendSMS("brotendo")
+	http.HandleFunc("/sms", func(w http.ResponseWriter, r *http.Request) {
+		query := r.URL.RawQuery
+		U.SendSMS(query)
+		// U.SendSMS("brotendo")
 	})
 
 	fmt.Printf("http://localhost:%s\n", port)
