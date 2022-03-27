@@ -28,7 +28,9 @@ func checkHandler(w http.ResponseWriter, r *http.Request) {
 	navs := []string{"check", "defend", "about"}
 	switch r.Method {
 	case "GET":
-		tpl.ExecuteTemplate(w, "check", navs)
+		tpl.ExecuteTemplate(w, "headnbod", navs)
+		tpl.ExecuteTemplate(w, "check", nil)
+		tpl.ExecuteTemplate(w, "tail", nil)
 	case "POST":
 		if err := r.ParseForm(); err != nil {
 			log.Fatal(err.Error())
@@ -44,8 +46,14 @@ func checkHandler(w http.ResponseWriter, r *http.Request) {
 			data := U.Branches(gitinfo.User, gitinfo.Repo)
 			fmt.Println(data[0].Protected)
 
+			tpl.ExecuteTemplate(w, "headnbod", navs)
+			// tpl.ExecuteTemplate(w, "defend", nil)
+			tpl.ExecuteTemplate(w, "tail", nil)
+
 		} else {
-			tpl.ExecuteTemplate(w, "err", navs)
+			tpl.ExecuteTemplate(w, "headnbod", navs)
+			tpl.ExecuteTemplate(w, "err", nil)
+			tpl.ExecuteTemplate(w, "tail", nil)
 		}
 	default:
 		fmt.Fprintf(w, "err: resource not found")
@@ -53,15 +61,21 @@ func checkHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func defendHandler(w http.ResponseWriter, r *http.Request) {
+	tpl := template.Must(template.ParseGlob("templates/*.html"))
+	navs := []string{"check", "defend", "about"}
 	switch r.Method {
 	case "GET":
-		tpl := template.Must(template.ParseGlob("templates/*.html"))
-		navs := []string{"check", "defend", "about"}
-		tpl.ExecuteTemplate(w, "defend", navs)
+		tpl.ExecuteTemplate(w, "headnbod", navs)
+		tpl.ExecuteTemplate(w, "defend", nil)
+		tpl.ExecuteTemplate(w, "tail", nil)
 	case "POST":
 		if err := r.ParseForm(); err != nil {
 			log.Fatal(err.Error())
 		}
+
+		tpl.ExecuteTemplate(w, "headnbod", navs)
+		// tpl.ExecuteTemplate(w, "defend", nil)
+		tpl.ExecuteTemplate(w, "tail", nil)
 
 	default:
 		fmt.Fprintf(w, "err: resource not found")
@@ -73,7 +87,9 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	case "GET":
 		tpl := template.Must(template.ParseGlob("templates/*.html"))
 		navs := []string{"check", "defend", "about"}
-		tpl.ExecuteTemplate(w, "about", navs)
+		tpl.ExecuteTemplate(w, "headnbod", navs)
+		tpl.ExecuteTemplate(w, "about", nil)
+		tpl.ExecuteTemplate(w, "tail", nil)
 	default:
 		fmt.Fprintf(w, "err: resource not found")
 	}

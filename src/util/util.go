@@ -11,6 +11,7 @@ type GithubInfo struct {
 	Repo string `json:"repo"`
 }
 
+// IsGitub: simple regex to figure out if it is a valid
 func IsGithub(input string) bool {
 	res, _ := regexp.MatchString("github.com/.+/.+", input)
 	return res
