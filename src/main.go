@@ -40,14 +40,25 @@ func checkHandler(w http.ResponseWriter, r *http.Request) {
 		if U.IsGithub(input) {
 			// to get the user and repo from values
 			specialFmt := fmt.Sprintf("%sSDUIE$FHWUIFNKWF$", input)
-			// fmt.Println(specialFmt)
 			gitinfo := U.ParseUserRepo(specialFmt)
+			user := gitinfo.User
+			repo := gitinfo.Repo
 
-			data := U.Branches(gitinfo.User, gitinfo.Repo)
-			fmt.Println(data[0].Protected)
+			branchData := U.Branches(user, repo)
+			// fmt.Println(branchData[0].Protected)
+
+			licenseData := U.License(user, repo)
+			// fmt.Println(licenseData.DoesRet, licenseData.Value.Name)
 
 			tpl.ExecuteTemplate(w, "headnbod", navs)
-			// tpl.ExecuteTemplate(w, "defend", nil)
+			tpl.ExecuteTemplate(w, "startPost", navs)
+			if licenseData.DoesRet {
+				tpl.ExecuteTemplate(w, "licenseTrue", licenseData.Value.Name)
+			} else {
+				tpl.ExecuteTemplate(w, "licenseFalse", nil)
+			}
+			tpl.ExecuteTemplate(w, "branchProt", branchData)
+			tpl.ExecuteTemplate(w, "endPost", navs)
 			tpl.ExecuteTemplate(w, "tail", nil)
 
 		} else {
